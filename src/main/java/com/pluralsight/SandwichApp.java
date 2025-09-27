@@ -14,19 +14,21 @@ public class SandwichApp {
 
         // scanner saves user input under the variable size
         int size = swScanner.nextInt();
+        double price;
 
         //create an if statement that displays the price of size chosen, either 1 or 2
         if(size == 1){
-            double price = 5.45;
-            System.out.printf("The price before the discount is $%.2f ", price);
+            price = 5.45; //I MADE THE MISTAKE OF DECLARING 'DOUBLE PRICE' IN EACH STATEMENT, INSTEAD CREATE THE PRICE VARIABLE ONCE OUTSIDE THE STATEMENT SO I CAN CALL IT LATER
         }
         else if (size == 2) {
-            double price = 8.95;
-            System.out.printf("The price before the discount is $%.2f ", price);
+            price = 8.95;
         }
         else {
             System.out.print("Invalid option, choose 1 or 2");
+            swScanner.close();
+            return; //QUESTION: WHAT DOES RETURN AND CLOSE DO? I WAS ABLE TO INITIALIZE 'PRICE' ONCE I ADDED THESE COMMANDS
         }
+        System.out.printf("The price before the discount is $%.2f ", price);
 
         System.out.println();
         //ask the user if they want a loaded sandwich (y/n) and give the two options
@@ -37,7 +39,7 @@ public class SandwichApp {
         //create scanner that stores y/n variable
         String loadSandwich = swScanner.nextLine();
 
-        //create an if statement that gives the loaded options and another that doesn't add anything
+        //create an if statement that gives the loaded options yes or no
         if(loadSandwich.equals("y") || loadSandwich.equals("Y")){
 
             //ask for a regular or large load
@@ -45,13 +47,44 @@ public class SandwichApp {
 
             //create a variable that stores the type of load in the scanner
             String typeOfLoad = swScanner.nextLine();
-            double regLoaded = 1.00;
-            double largeLoaded = 1.75;
+
+            //create an if statement that gives the options of regular or large load
+            if(typeOfLoad.equals("regular")){
+                double regLoaded = 1.00;
+                double sum = price + regLoaded;
+                System.out.printf("New price: $%.2f", sum);
+            }
+            else if(typeOfLoad.equals("large")){
+                double largeLoaded = 1.75;
+                double sum = price + largeLoaded;
+                System.out.printf("New price: $%.2f", sum);
+            }
+            else{
+                System.out.println("Invalid option, choose regular or large");
+            }
         }
         else if(loadSandwich.equals("n") || loadSandwich.equals("N")){
-            System.out.println("Price: ");//+ price); // HOW DO I CALL PRICE HERE???
+            System.out.printf("Price: $%.2f", price);
         }
 
+        System.out.println();
+        //ask the user for their age
+        System.out.print("What is your age? ");
+
+        //create scanner to store the age of the user
+        int age = swScanner.nextInt();
+
+        //create if statements with age conditions for discounts
+        if(age <= 17){
+            double discount = price * .90;
+        }
+        else if(age >= 65){
+            double discount = price * .80;
+        }
+        else{
+            System.out.println("Invalid input");
+        }
+        System.out.printf("Final price: $%.2f", price);
     }
 
 }
